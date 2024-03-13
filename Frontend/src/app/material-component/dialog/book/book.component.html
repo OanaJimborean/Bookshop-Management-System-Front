@@ -1,0 +1,74 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+        <span>{{dialogData.action}} Book</span>
+        <span class="spacer"></span>
+        <button class="mat-dialog-close" mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="bookForm">
+        <div fxFlex fxLayout="column">
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="standard" fxFlex>
+                    <mat-label>Title</mat-label>
+                    <input matInput formControlName="title" required>
+                    <mat-error *ngIf="bookForm.controls.title.touched && bookForm.controls.title.invalid">
+                        <span *ngIf="bookForm.controls.title.errors.required">This field is mandatory.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="standard" fxFlex>
+                    <mat-label>Price</mat-label>
+                    <input matInput formControlName="price" required>
+                    <mat-error *ngIf="bookForm.controls.price.touched && bookForm.controls.price.invalid">
+                        <span *ngIf="bookForm.controls.price.errors.required">This field is mandatory.</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard" fxFlex>
+                    <mat-label>Category</mat-label>
+                    <mat-select formControlName="categoryId">
+                        <mat-option *ngFor="let category of categories" [value]="category.id">
+                            {{category.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+
+            <div fxFlex fxLayout="column">
+                <div fxLayout="row wrap">
+                    <mat-form-field appearance="standard" fxFlex>
+                        <mat-label>Author</mat-label>
+                        <input matInput formControlName="author" required>
+                        <mat-error *ngIf="bookForm.controls.author.touched && bookForm.controls.author.invalid">
+                            <span *ngIf="bookForm.controls.author.errors.required">This field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxFlex fxLayout="column">
+                <div fxLayout="row wrap">
+                    <mat-form-field appearance="standard" fxFlex>
+                        <mat-label>Description</mat-label>
+                        <input matInput formControlName="description" required>
+                        <mat-error *ngIf="bookForm.controls.description.touched && bookForm.controls.description.invalid">
+                            <span *ngIf="bookForm.controls.description.errors.required">This field is mandatory.</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" type="submit" (click)="handleSubmit()" [disabled]="!(bookForm.valid && bookForm.dirty)">
+        <mat-icon>save</mat-icon> {{action}}
+    </button>
+    <button mat-raised-button color="warn" mat-dialog-close><mat-icon>cancel</mat-icon> Close</button>
+</mat-dialog-actions>
